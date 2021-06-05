@@ -1,5 +1,7 @@
 <?php
-namespace Stk2k\Bench;
+declare(strict_types=1);
+
+namespace stk2k\Bench;
 
 class TimeBenchmark
 {
@@ -10,9 +12,9 @@ class TimeBenchmark
     /**
      *  start timer
      *
-     * @return integer    handle of timer
+     * @return int    handle of timer
      */
-    public static function start()
+    public static function start() : int
     {
         static $handle = 0;
 
@@ -26,14 +28,14 @@ class TimeBenchmark
     /**
      *    stop timer
      *
-     * @param integer $handle        handle of timer
-     * @param integer $precision     precision of timer value
+     * @param int $handle        handle of timer
+     * @param int $precision     precision of timer value
      *
-     * @return integer      now score
+     * @return float      now score
      */
-    public static function stop( $handle, $precision = self::DEFAULT_PRECISION )
+    public static function stop(int $handle, int $precision = self::DEFAULT_PRECISION) : float
     {
-        $start_time = isset(self::$benchmarks[$handle]) ? self::$benchmarks[$handle] : NULL;
+        $start_time = self::$benchmarks[$handle] ?? null;
         $stop_time = microtime(true);
 
         self::$benchmarks[$handle] = $stop_time;
@@ -44,14 +46,14 @@ class TimeBenchmark
     /**
      *    score
      *
-     * @param integer $handle        handle of timer
-     * @param integer $precision     precision of timer value
+     * @param int $handle        handle of timer
+     * @param int $precision     precision of timer value
      *
-     * @return integer      now score
+     * @return float      now score
      */
-    public static function score( $handle, $precision = self::DEFAULT_PRECISION )
+    public static function score(int $handle, int $precision = self::DEFAULT_PRECISION ) : float
     {
-        $start_time = isset(self::$benchmarks[$handle]) ? self::$benchmarks[$handle] : NULL;
+        $start_time = self::$benchmarks[$handle] ?? null;
         $stop_time = microtime(true);
 
         return round( ($stop_time - $start_time) * 1000, $precision );

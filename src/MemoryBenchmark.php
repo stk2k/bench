@@ -1,8 +1,10 @@
 <?php
-namespace Stk2k\Bench;
+declare(strict_types=1);
 
-use Stk2k\Util\Enum\EnumMemoryUnit;
-use Stk2k\Util\MemoryUtil;
+namespace stk2k\Bench;
+
+use stk2k\Util\Enum\EnumMemoryUnit;
+use stk2k\Util\MemoryUtil;
 
 /**
 * Benchmark class Of Memory Usage
@@ -21,10 +23,11 @@ class MemoryBenchmark
     static private $benchmarks;
 
     /**
-     *  start timer
+     * Start timer
      *
+     * @return int    handle of timer
      */
-    public static function start()
+    public static function start() : int
     {
         static $handle = 0;
 
@@ -41,15 +44,15 @@ class MemoryBenchmark
     /**
      *    score
      *
-     * @param integer $handle        handle of benchmark
-     * @param integer $unit          unit of memory usage
-     * @param integer $precision     precision of memory usage
+     * @param int $handle        handle of benchmark
+     * @param int $unit          unit of memory usage
+     * @param int $precision     precision of memory usage
      *
      * @return array      now scores
      */
-    public static function score( $handle, $unit = EnumMemoryUnit::UNIT_MB, $precision = self::DEFAULT_PRECISION  )
+    public static function score(int $handle, int $unit = EnumMemoryUnit::UNIT_MB, int $precision = self::DEFAULT_PRECISION) : array
     {
-        $start = isset(self::$benchmarks[$handle]) ? self::$benchmarks[$handle] : NULL;
+        $start = self::$benchmarks[$handle] ?? null;
 
         $alloc      = memory_get_usage(false) - $start['alloc'];
         $alloc_real = memory_get_usage(true) - $start['alloc_real'];

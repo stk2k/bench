@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
+
 require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 require_once 'include/autoload.php';
 
-use Stk2k\Bench\MemoryBenchmark;
+use stk2k\Bench\MemoryBenchmark;
 
 $handle = MemoryBenchmark::start();
 
